@@ -173,7 +173,8 @@ $(function(){
           }else{
             newhtml.src="Cards/back.png";
           }
-          newhtml.classList.add("card","ui-droppable","img-thumbnail","rounded");
+          // newhtml.classList.add("card","ui-droppable","rounded");
+          newhtml.classList.add("card","ui-droppable","rounded","handle","fas","fa-arrows-alt-v");
           data.children[j].append(newhtml);
           if (i==4 && j==3){
             break;
