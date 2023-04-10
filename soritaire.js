@@ -58,7 +58,7 @@ if (mode=="spider_easy"){
   }
 }
 $(function(){
-    function check_distributable(){
+  function check_distributable(){//山札を1列配ることができるか確認(何もない列がないか確認)
       data = document.querySelector('#coltest');
       flag=true;
       for (let i=0;i<10;i++){
@@ -70,150 +70,64 @@ $(function(){
       return flag;
     }
     currentdeck=0;
-    if (mode=="solitaire"){
-      $('#deck').on('click',function(){
-        if (currentdeck==-1){
+    $('#deck').on('click',function(){
+      if (currentdeck==shuffleCards.length){
+        console.log("ここまでで一通り");
+        $(this)[0].removeAttribute("src");
+        currentdeck=-1;
+      }
+      if (currentdeck==-1){//全て出した状態から始めの状態に戻る
+        if (shuffleCards.length>1){
           $(this)[0].src="Cards/back.png";
-          // $(this.nextElementSibling)[0].id='dummy';
-          // $(this.nextElementSibling)[0].removeAttribute('src');
-          $(this.nextElementSibling)[0].remove();
-          var newhtml=document.createElement('img');
-          newhtml.id='dummy';
-          newhtml.classList.add("dummy","card","ui-droppable","ui-droppable-disabled");
-          newhtml.style="margin-top: 20px; margin-left:40px;"
-          console.log($(this)[0]);
-          $(this)[0].parentElement.append(newhtml);
-          currentdeck++;
-          return;
         }
-        // console.log("soliatire");
-        console.log(shuffleCards);
-        console.log(shuffleCards[currentdeck]);
-        console.log(shuffleCards.length);
-        // console.log($(this.nextElementSibling)[0]);
-        $(this.nextElementSibling)[0].id=String(shuffleCards[currentdeck]['type'])+"_"+String(shuffleCards[currentdeck]['number']);
-        $(this.nextElementSibling)[0].src="Cards/"+String($(this.nextElementSibling)[0].id)+".png";
-        console.log($(this.nextElementSibling)[0].src);
-        // $(this.nextElementSibling).classList.add("card","ui-droppable","rounded");
-        // console.log("Cards/"+String(shuffleCards[currentdeck]['type'])+"_"+String(shuffleCards[currentdeck]['number'])+".png");
-        // $(this.nextElementSibling)[0].src="Cards/"+String(shuffleCards[currentdeck]['type'])+"_"+String(shuffleCards[currentdeck]['number'])+".png";
-        // newhtml.src="Cards/"+String(newhtml.id)+".png";
+        $(this.nextElementSibling)[0].remove();
+        var newhtml=document.createElement('img');
+        newhtml.id='dummy';
+        newhtml.classList.add("dummy","card","ui-droppable","ui-droppable-disabled","ui-draggable","ui-draggable-handle");
+        newhtml.style="margin-top: 20px; margin-left:40px;"
+        console.log($(this)[0]);
+        $(this)[0].parentElement.append(newhtml);
         currentdeck++;
-        if (currentdeck==shuffleCards.length){
-          console.log("ここまでで一通り");
-          $(this)[0].src="";
-          currentdeck=-1;
-        }
-      });
-    }else{
-      $('#decklist>*').on('click',function(){
-        flag=check_distributable();
-        if (flag){
-          for (let i=0;i<10;i++){
-            var newhtml=document.createElement('img');
-            var selectCard = shuffleCards[0];
-            shuffleCards.splice(0, 1);
-            newhtml.id=String(selectCard['type'])+"_"+String(selectCard['number']);
-            newhtml.src="Cards/"+String(newhtml.id)+".png";
-            newhtml.classList.add("card","ui-droppable","rounded");
-            data.children[i].append(newhtml);
-          }
-          console.log("山札配った後のdraggable_droppable_init()");
-          draggable_droppable_init();
-          //山札を一つ消去
-          $('#decklist :last-child').remove();
-        }else{
-          alert("カードが無い列があります");
-        }
-      });
-    }
-    // $('#deck').on('click',function(){
-    //   console.log("currentdeck="+currentdeck);
-    //   if (mode=="solitaire"){
-    //     if (currentdeck==-1){
-    //       $(this)[0].src="Cards/back.png";
-    //       // $(this.nextElementSibling)[0].id='dummy';
-    //       // $(this.nextElementSibling)[0].removeAttribute('src');
-    //       $(this.nextElementSibling)[0].remove();
-    //       var newhtml=document.createElement('img');
-    //       newhtml.id='dummy';
-    //       newhtml.classList.add("dummy","card","ui-droppable","ui-droppable-disabled");
-    //       newhtml.style="margin-top: 20px; margin-left:40px;"
-    //       console.log($(this)[0]);
-    //       $(this)[0].parentElement.append(newhtml);
-    //       currentdeck++;
-    //       return;
-    //     }
-    //     // console.log("soliatire");
-    //     console.log(shuffleCards);
-    //     console.log(shuffleCards[currentdeck]);
-    //     console.log(shuffleCards.length);
-    //     // console.log($(this.nextElementSibling)[0]);
-    //     $(this.nextElementSibling)[0].id=String(shuffleCards[currentdeck]['type'])+"_"+String(shuffleCards[currentdeck]['number']);
-    //     $(this.nextElementSibling)[0].src="Cards/"+String($(this.nextElementSibling)[0].id)+".png";
-    //     console.log($(this.nextElementSibling)[0].src);
-    //     // $(this.nextElementSibling).classList.add("card","ui-droppable","rounded");
-    //     // console.log("Cards/"+String(shuffleCards[currentdeck]['type'])+"_"+String(shuffleCards[currentdeck]['number'])+".png");
-    //     // $(this.nextElementSibling)[0].src="Cards/"+String(shuffleCards[currentdeck]['type'])+"_"+String(shuffleCards[currentdeck]['number'])+".png";
-    //     // newhtml.src="Cards/"+String(newhtml.id)+".png";
-    //     currentdeck++;
-    //     if (currentdeck==shuffleCards.length){
-    //       console.log("ここまでで一通り");
-    //       $(this)[0].src="";
-    //       currentdeck=-1;
-    //     }
-    //   }else{
-    //     //山札を配る
-    //     flag=check_distributable();
-    //     if (flag){
-    //       for (let i=0;i<10;i++){
-    //         var newhtml=document.createElement('img');
-    //         var selectCard = shuffleCards[0];
-    //         shuffleCards.splice(0, 1);
-    //         newhtml.id=String(selectCard['type'])+"_"+String(selectCard['number']);
-    //         newhtml.src="Cards/"+String(newhtml.id)+".png";
-    //         newhtml.classList.add("card","ui-droppable","rounded");
-    //         data.children[i].append(newhtml);
-    //       }
-    //       console.log("山札配った後のdraggable_droppable_init()");
-    //       draggable_droppable_init();
-    //       //山札を一つ消去
-    //       $('#decklist :last-child').remove();
-    //     }else{
-    //       alert("カードが無い列があります");
-    //     }
-    //   }
-    // });
-    function trump_init(trumpData) {
-        var cards = [];
-        for (var i = 0; i < trumpData['card'].length; i++) {
-            var thistype = trumpData['card'][i];
-            for (var j = 0; j < thistype['count']; j++) {
+        return;
+      }
+      $(this.nextElementSibling)[0].id=String(shuffleCards[currentdeck]['type'])+"_"+String(shuffleCards[currentdeck]['number']);
+      $(this.nextElementSibling)[0].src="Cards/"+String($(this.nextElementSibling)[0].id)+".png";
+      $(this.nextElementSibling)[0].border="0";
+      $(this.nextElementSibling)[0].classList.remove("dummy");
+      currentdeck++;
+      if (currentdeck==shuffleCards.length){
+        console.log("一通り見たのでカードをなくす");
+        $(this)[0].removeAttribute("src");
+      }
+      draggable_droppable_init()
+    });
+    function trump_init(trumpData) {//トランプの初期化
+        var cards=[];
+        for (let i=0;i<trumpData['card'].length;i++) {//通常カード追加
+            var thistype=trumpData['card'][i];
+            for (let j=0;j<thistype['count'];j++) {
                 cards.push({
                     type: thistype['type'],
-                    number: j + 1
+                    number: j+1
                 });
             }
         }
-        for (var i = 0; i < trumpData['joker']; i++) {
+        for (var i=0;i<trumpData['joker'];i++) {//joker追加
             cards.push({
                 type: 'joker',
-                number: i + 1
+                number: i+1
             });
         }
         return cards;
     }
-    function sort_at_random(arrayData) {
-        var arr = arrayData.concat();
-        var arrLength = arr.length;
-        var randomArr = [];
-        for(var i = 0; i < arrLength; i++) {
-            // 0～countArrの個数 の範囲から、数値をランダムに抽出
-            var randomTarget = Math.floor(Math.random() * arr.length);
-            // randomArrに数値を格納
-            randomArr[i] = arr[randomTarget];
-            // 同じ数値を再度使わないように、今回使った数値をcountArrから削除しておく
-            arr.splice(randomTarget, 1);
+    function sort_at_random(arrayData) {//トランプのシャッフル
+        var arr=arrayData.concat();
+        var arrLength=arr.length;
+        var randomArr=[];
+        for(let i=0;i<arrLength;i++) {
+            var randomTarget=Math.floor(Math.random()*arr.length);// 0～countArrの個数 の範囲から、数値をランダムに抽出
+            randomArr[i]=arr[randomTarget];// randomArrに数値を格納
+            arr.splice(randomTarget, 1);// 同じ数値を再度使わないように、今回使った数値をcountArrから削除しておく
         }
         return randomArr;
     }
@@ -256,71 +170,46 @@ $(function(){
     }
     function init(){
       var data = document.querySelector('#coltest');
-      if (mode=="solitaire"){
-        for (let i=0;i<7;i++){
-          for (let j=0;j<7;j++){
-            if (i>j){
-              continue;
-            }
-            var newhtml=document.createElement('img');
-            var selectCard = shuffleCards[0];
-            shuffleCards.splice(0, 1);
-            newhtml.id=String(selectCard['type'])+"_"+String(selectCard['number']);
-            if (i==j){
-              newhtml.src="Cards/"+String(newhtml.id)+".png";
-            }else{
-              newhtml.src="Cards/back.png";
-            }
-            // newhtml.classList.add("card","ui-droppable","rounded");
-            newhtml.classList.add("card","ui-droppable","rounded","handle","fas","fa-arrows-alt-v");
-            data.children[j].append(newhtml);
+      for (let i=0;i<7;i++){
+        for (let j=0;j<7;j++){
+          if (i>j){
+            continue;
           }
-        }
-      }else{
-        for (let i=0;i<6;i++){
-          for (let j=0;j<10;j++){
-            var newhtml=document.createElement('img');
-            var selectCard = shuffleCards[0];
-            shuffleCards.splice(0, 1);
-            newhtml.id=String(selectCard['type'])+"_"+String(selectCard['number']);
-            if (i==5){
-              newhtml.src="Cards/"+String(newhtml.id)+".png";
-            }else{
-              newhtml.src="Cards/back.png";
-            }
-            // newhtml.classList.add("card","ui-droppable","rounded");
-            newhtml.classList.add("card","ui-droppable","rounded","handle","fas","fa-arrows-alt-v");
-            data.children[j].append(newhtml);
-            if (i==4 && j==3){
-              break;
-            }
+          var newhtml=document.createElement('img');
+          var selectCard = shuffleCards[0];
+          shuffleCards.splice(0, 1);
+          newhtml.id=String(selectCard['type'])+"_"+String(selectCard['number']);
+          if (i==j){
+            newhtml.src="Cards/"+String(newhtml.id)+".png";
+          }else{
+            newhtml.src="Cards/back.png";
           }
+          newhtml.classList.add("card","ui-droppable","rounded");
+          data.children[j].append(newhtml);
         }
       }
     }
     init();
     draggable_droppable_init();
-    function draggable_droppable_init(){
-      $(".dummy").droppable().droppable("disable");
-      $("#coltest>*>img").droppable().droppable("disable");
-      $("#coltest>*>img").draggable().draggable("disable");
-      $("#coltest :last-child").droppable().droppable("enable");
-      // console.log($("#decklist")[0].children.length);
-      if ($("#decklist")[0].children.length!=2 && mode=="solitaire"){
+    function draggable_droppable_init(){//draggableとdroppableを対象のカードのみ有効化する関数
+      if ($("#decklist")[0].children.length!=2 && mode=="solitaire"){//山札の1枚を表示するエリアが移動した関係でなくなっていた場合再作成
         var newhtml=document.createElement('img');
         newhtml.id='dummy';
         newhtml.classList.add("dummy","card","ui-droppable","ui-droppable-disabled");
         newhtml.style="margin-top: 20px; margin-left:40px;"
-        // console.log($(this)[0]);
         $("#decklist")[0].append(newhtml);
       }
+      $(".dummy").droppable().droppable("disable");
+      $("#completecard>.dummy").droppable("enable");
+      $("#coltest>*>img").droppable().droppable("disable");
+      $("#coltest>*>img").draggable().draggable("disable");
+      $("#coltest :last-child").droppable().droppable("enable");
 
-      // $("#coltest>*>*").draggable({
       $(".card").draggable({
         appendTo: "body",
         cancel: ".dummy",
         cursor: "move",
-        drag: function(event, ui) {
+        drag: function(event, ui) {//連続しているカードを一緒に移動する
             targets.forEach((elem, index) => {
               $(elem).css(ui.position);
             });
@@ -328,7 +217,7 @@ $(function(){
         start: function(event,ui){
           targets=[ui.helper[0]];
           var id = ui.helper[0].id;
-          for (const target of $(ui.helper[0]).nextAll($(this))){
+          for (const target of $(ui.helper[0]).nextAll($(this))){//連続しているカード情報を一時保存
             if (mode=="solitaire"){
               if (id[0]=="D"||id[0]=="H"){
                 tmp1="Red";
@@ -344,19 +233,18 @@ $(function(){
             }else{
               flag=(id[0]==target.id[0])
             }
-            // if ((id[0]==target.id[0]) && (Number(id.substr(2))-1==Number(target.id.substr(2)))){
             if (flag && (Number(id.substr(2))-1==Number(target.id.substr(2)))){
               targets.push(target);
               id=target.id;
             }
           }
           var a=10;
-          targets.forEach((elem, index) => {
+          targets.forEach((elem, index) => {//連続しているカードの表示優先度を調整
             $(elem).css("z-index", a++);
           });
         },
         stop: function(event, ui){
-          targets.forEach((elem, index) => {
+          targets.forEach((elem, index) => {//ドラッグを放したら設定を元に戻す
             elem.style["z-index"]=null;
             elem.style.top=null;
             elem.style.left=null;
@@ -365,45 +253,60 @@ $(function(){
         snap: true,
         snapMode: "outer",
       });
+      $("#completecard>*").droppable({
+        drop: function(event, ui){
+          console.log(ui.helper[0].id);
+          console.log(event.target.id);
+          flag=false;
+          if (targets.length==1){//カードを上げるのは1個移動の時のみ受け付ける
+            if (event.target.id=="dummy" && ui.helper[0].id.substr(2)==1){//最初に1を置くとき
+              flag=true;
+            }else{
+              if ((ui.helper[0].id[0]==event.target.id[0]) && (Number(ui.helper[0].id.substr(2))-1==Number(event.target.id.substr(2)))){
+                flag=true;
+              }
+            }
+            if (flag){
+              ui.helper[0].classList.add("card");
+              event.target.id=ui.helper[0].id;
+              event.target.src=ui.helper[0].src;
+              var lasthtml=ui.helper[0].previousElementSibling;
+              if (lasthtml!=null && lasthtml.id!="deck" && lasthtml.id!="dummy"){
+                if (lasthtml.src.split("/").reverse()[0].split('.')[0]=="back"){//元の場所の上のカードが裏なら開く
+                  lasthtml.src="Cards/"+lasthtml.id+".png";
+                }
+              }
+              if (ui.helper[0].parentElement.id=="decklist"){
+                shuffleCards.splice(--currentdeck, 1);
+              }
+              ui.helper[0].remove();
+              draggable_droppable_init();
+            }
+          }
+        },
+      });
       $("#coltest>*>*").droppable({
-        // accept:"#coltest>*>*",
         drop: function(event,ui){
           console.log(ui.helper[0].id+" to "+event.target.id);
           if (event.target.id=="dummy"){
 
-            if (mode!="solitaire" || (mode=="solitaire"&&Number(ui.helper[0].id.substr(2))==13)){//スパイダーソリティアは13でなくても一番上における
-            // if (Number(ui.helper[0].id.substr(2))==13){
+            if (mode=="solitaire"&&Number(ui.helper[0].id.substr(2))==13){//スパイダーソリティアは13でなくても一番上における
               var lasthtml=ui.helper[0].previousElementSibling;
-              // if (lasthtml!=null && lasthtml.id!="dummy"){
               if (lasthtml!=null && lasthtml.id!="deck" && lasthtml.id!="dummy"){
-                if (lasthtml.src.split("/").reverse()[0].split('.')[0]=="back"){
+                if (lasthtml.src.split("/").reverse()[0].split('.')[0]=="back"){//元の場所の上のカードが裏なら開く
                   lasthtml.src="Cards/"+lasthtml.id+".png";
                 }
-                // $(ui.helper[0].previousElementSibling).droppable("enable");//前の要素
-                // $(ui.helper[0].previousElementSibling).draggable("enable");//前の要素
-                // while (true){
-                //   if (lasthtml.previousElementSibling==null){
-                //     break;
-                //   }
-                //   if ((Number(lasthtml.id.substr(2))+1)==Number(lasthtml.previousElementSibling.id.substr(2)) && lasthtml.src.split("/").reverse()[0].split('.')[0]!="back"){
-                //     // $(lasthtml.previousElementSibling).draggable("enable");
-                //     // var lasthtml=lasthtml.previousElementSibling;
-                //   }else{
-                //     if (lasthtml.src.split("/").reverse()[0].split('.')[0]=="back"){
-                //       lasthtml.src="Cards/"+lasthtml.id+".png";
-                //     }
-                //     break;
-                //   }
-                // }
               }
-              targets.forEach((elem, index) => {
+              targets.forEach((elem, index) => {//カード移動
+                if (elem.parentElement.id=="decklist"){
+                  shuffleCards.splice(--currentdeck, 1);
+                  console.log("手札から来た13");
+                }
                 elem.classList.add("card");
+                elem.removeAttribute("style");
                 event.target.parentElement.append(elem);
               });
-              // $(ui.helper[0].parentElement.firstElementChild).droppable("disable");//dummyのdroppableをdisableへ
-              console.log("13をdummyにおいたときのdraggable_droppable_init()");
               draggable_droppable_init();
-              // ui.helper[0].previousElementSibling.src="Cards/"+lasthtml.id+".png";
             }
           }
           if (mode=="solitaire"){
@@ -421,46 +324,29 @@ $(function(){
           }else{
             flag=(true);
           }
-          // if ((ui.draggable[0].id[0]==event.target.id[0]) && (Number(ui.draggable[0].id.substr(2))+1==Number(event.target.id.substr(2)))){
           if (flag && Number(ui.draggable[0].id.substr(2))+1==Number(event.target.id.substr(2))){
-            // $(event.target).droppable("disable");
-            console.log("parentは");
-            console.log(ui.helper[0].parentElement.id);
             var lasthtml=ui.helper[0].previousElementSibling;
             if (lasthtml!=null && lasthtml.id!="deck" && lasthtml.id!="dummy"){
-              if (lasthtml.src.split("/").reverse()[0].split('.')[0]=="back"){
-                console.log("Cards/"+lasthtml.id+".png");
+              if (lasthtml.src.split("/").reverse()[0].split('.')[0]=="back"){//元の場所の上のカードが裏なら開く
                 lasthtml.src="Cards/"+lasthtml.id+".png";
               }
-              // $(ui.helper[0].previousElementSibling).droppable("enable");//前の要素
-              // $(ui.helper[0].previousElementSibling).draggable("enable");//前の要素
-              // while (true){
-              //   if (lasthtml.previousElementSibling==null){
-              //     break;
-              //   }
-              //   if ((Number(lasthtml.id.substr(2))+1)==Number(lasthtml.previousElementSibling.id.substr(2)) && lasthtml.src.split("/").reverse()[0].split('.')[0]!="back"){
-              //     $(lasthtml.previousElementSibling).draggable("enable");
-              //     var lasthtml=lasthtml.previousElementSibling;
-              //   }else{
-              //     if (lasthtml.src.split("/").reverse()[0].split('.')[0]=="back"){
-              //       lasthtml.src="Cards/"+lasthtml.id+".png";
-              //     }
-              //     break;
-              //   }
-              // }
             }
-            targets.forEach((elem, index) => {
+            targets.forEach((elem, index) => {//カード移動
+              if (elem.parentElement.id=="decklist"){
+                shuffleCards.splice(--currentdeck, 1);
+                console.log(shuffleCards[currentdeck]);
+                console.log("手札から来た13以外");
+              }
               elem.classList.add("card");
               elem.removeAttribute("style");
               event.target.parentElement.append(elem);
             });
-            console.log("通常のdraggable_droppable_init()");
             draggable_droppable_init();
             currenthtml=ui.helper[0];
-            if(getmaxval(currenthtml)==13 && getminval(currenthtml)==1){
+            if(getmaxval(currenthtml)==13 && getminval(currenthtml)==1){//移動後1～13まで揃っているかの判定
               currenthtml=currenthtml.parentElement.lastElementChild;
               type=currenthtml.id[0];
-              for (let i=1; i<=13; i++){
+                for (let i=1; i<=13; i++){//連続している1～13までのカードを削除
                 currenthtml=currenthtml.previousElementSibling;
                 currenthtml.nextElementSibling.remove();
               }
@@ -468,15 +354,13 @@ $(function(){
               var completehtml=document.createElement('img');
               bottom=document.getElementById("completecard");
               completehtml.id="complete";
-              // completehtml.src="Cards/back.png";
               completehtml.src="Cards/"+type+"_13.png";
               completehtml.classList.add("complete","rounded");
-              bottom.append(completehtml);
-              console.log("1から13まで揃った時のdraggable_droppable_init()");
+              bottom.append(completehtml);//complete cardを追加
               draggable_droppable_init();
             }
           }else{
-            targets.forEach((elem, index) => {
+            targets.forEach((elem, index) => {//移動できない場合は元に戻す
               elem.style["z-index"]=null;
               elem.style.top=null;
               elem.style.left=null;
@@ -484,12 +368,14 @@ $(function(){
           }
         }
       });
+      //対象の位置のdraggableを有効化
       data = document.querySelector('#coltest');
-      for (let i=0; i<data.childElementCount; i++){
+      for (let i=0; i<data.childElementCount; i++){//全ての列を見て回る
         var lasthtml=data.children[i].children[data.children[i].childElementCount-1];
-        $(lasthtml).draggable("enable");
-        for (let j=data.children[i].childElementCount-2;  j>0; j--){
-          // console.log(data.children[i].children[j].src);
+        if (data.children[i].childElementCount!=1){
+          $(lasthtml).draggable("enable");//最後の要素のdraggableは必ず有効
+        }
+        for (let j=data.children[i].childElementCount-2;  j>0; j--){//各列のカードを後ろから見る
           if (data.children[i].children[j].src.split("/").reverse()[0].split('.')[0]=="back"){
             break;
           }
@@ -508,7 +394,6 @@ $(function(){
           }else{
             flag=(lasthtml.id[0]==data.children[i].children[j].id[0])
           }
-          // if ((lasthtml.id[0]==data.children[i].children[j].id[0]) && (Number(lasthtml.id.substr(2))+1==Number(data.children[i].children[j].id.substr(2)))){
           if ((flag) && (Number(lasthtml.id.substr(2))+1==Number(data.children[i].children[j].id.substr(2)))){
             $(data.children[i].children[j]).draggable("enable");
             lasthtml=data.children[i].children[j];
@@ -518,5 +403,4 @@ $(function(){
         }
       }
     }
-
 });
