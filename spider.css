@@ -1,0 +1,34 @@
+/* .first{
+  position:relative;
+  width: 84px;
+  height:138px;
+  width:120%;
+  max-width:120%;
+} */
+.card {
+  width: 84px;
+  height:138px;
+  width:120%;
+  max-width:120%;
+  margin: -105px 0 0 0;
+  /* ↓ソリティア
+  width: 123px;
+  height:174px;
+  margin: -138px 0 0 0; */
+}
+.complete {
+  position:relative;
+  width: 84px;
+  height:auto;
+  margin: 0 0 0 -50px;
+
+  /* ↓ソリティア
+  width: 123px;
+  height:174px;
+  margin: 0 -60px 0 0; */
+}
+.deck {
+  width: 84px;
+  height:auto;
+  margin: 0 -50px 0 0;
+}

@@ -12,264 +12,59 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script> -->
-    <!-- <link rel="stylesheet" href="style.css" type="text/css"> -->
-    <link rel="stylesheet" href="style.css">
-    <!-- <style>
-      body {
-        font-family: sans-serif;
-      }
-
-      #drop-target {
-        border: 2px dotted darkgoldenrod;
-        width: 200px;
-        height: 30px;
-        padding: 1em;
-        font-size: 18px;
-        overflow: scroll;
-      }
-
-      .drop-target-over {
-        background: rgba(156, 167, 96, 0.1);
-      }
-
-      .item-container {
-        width: 150px;
-        padding: 0;
-      }
-
-      .dragged-item {
-        display: block;
-        margin-bottom: 5px;
-        padding: 2px;
-        color: black;
-        background: white;
-        font-size: 18px;
-        border: 1px solid gray;
-      }
-    </style> -->
-    <script src="test.js"></script>
+    <link rel="stylesheet" href="spider.css">
+    <script src="spider.js"></script>
+    <audio id="audio_drawcard">
+      <source src="./Sounds/drawcard.mp3" type="audio/mp3">
+    </audio>
+    <audio id="audio_distributecard">
+      <source src="./Sounds/distributecard.mp3" type="audio/mp3">
+    </audio>
     <div class="container">
-      <!-- <div id="coltest1" class="row">
-        <div class="col"></div>
-      </div> -->
-
       <div id="header" class="row">
         <div id="decklist" class="row mr-auto">
-          <img id="deck" src="Cards/back.png" class="deck rounded">
-          <img id="deck" src="Cards/back.png" class="deck rounded">
-          <img id="deck" src="Cards/back.png" class="deck rounded">
-          <img id="deck" src="Cards/back.png" class="deck rounded">
-          <img id="deck" src="Cards/back.png" class="deck rounded">
+          <img id="deck" src="Cards/back.png" class="deck">
+          <img id="deck" src="Cards/back.png" class="deck">
+          <img id="deck" src="Cards/back.png" class="deck">
+          <img id="deck" src="Cards/back.png" class="deck">
+          <img id="deck" src="Cards/back.png" class="deck">
         </div>
         <div id="completecard" class="row ml-auto">
-          <!-- <img id="complete" src="Cards/S_13.png" class="complete rounded"> -->
-          <!-- <img id="complete" src="Cards/S_13.png" class="complete rounded"> -->
         </div>
       </div>
-      <!-- ソリティア用(7列) -->
-      <!-- <div id="coltest" class="row">
-        <div class="col" >
-          <div id="dummy" class="dummy ui-droppable ui-droppable-disabled" style="width: 123px; height:174px;" alt="" border="0"></div>
-        </div>
-        <div class="col">
-          <div id="dummy" class="dummy ui-droppable-disabled" style="width: 123px; height:174px;" alt="" border="0"></div>
-        </div>
-        <div class="col">
-          <div id="dummy" class="dummy ui-droppable-disabled" style="width: 123px; height:174px;" alt="" border="0"></div>
-        </div>
-        <div class="col">
-          <div id="dummy" class="dummy ui-droppable-disabled" style="width: 123px; height:174px;" alt="" border="0"></div>
-        </div>
-        <div class="col">
-          <div id="dummy" class="dummy ui-droppable-disabled" style="width: 123px; height:174px;" alt="" border="0"></div>
-        </div>
-        <div class="col">
-          <div id="dummy" class="dummy ui-droppable-disabled" style="width: 123px; height:174px;" alt="" border="0"></div>
-        </div>
-        <div class="col">
-          <div id="dummy" class="dummy ui-droppable-disabled" style="width: 123px; height:174px;" alt="" border="0"></div>
-          <img id="S_8" src="Cards/S_8.png" class="card ui-droppable img-thumbnail rounded">
-        </div>
-      </div> -->
-
       <!-- スパイダーソリティア用(10列) -->
       <div id="coltest" class="row">
         <div class="col">
-          <!-- <div id="dummy" class="dummy ui-droppable ui-droppable-disabled" style="width: 123px; height:174px;"></div> -->
-          <!-- <img id="S_8" src="Cards/S_8.png" class="card ui-droppable img-thumbnail rounded"> -->
-          <div id="dummy" class="dummy ui-droppable ui-droppable-disabled" style="width: 84px; height:138px; width:120%; max-width:120%"></div>
-          <!-- <img id="S_8" src="Cards/S_8.png" class="card ui-droppable img-thumbnail rounded"> -->
-          <!-- <img id="S_7" src="Cards/S_7.png" class="card ui-droppable img-thumbnail rounded"> -->
+          <div id="dummy" class="dummy" style="width: 84px; height:138px; width:120%; max-width:120%"></div>
         </div>
         <div class="col">
-          <div id="dummy" class="dummy ui-droppable ui-droppable-disabled" style="width: 84px; height:138px; width:120%; max-width:120%"></div>
-          <!-- <img id="S_8" src="Cards/S_8.png" class="card ui-droppable img-thumbnail rounded"> -->
-          <!-- <img id="S_8" src="Cards/S_8.png" class="card ui-droppable img-thumbnail rounded"> -->
+          <div id="dummy" class="dummy" style="width: 84px; height:138px; width:120%; max-width:120%"></div>
         </div>
         <div class="col">
-          <div id="dummy" class="dummy ui-droppable ui-droppable-disabled" style="width: 84px; height:138px; width:120%; max-width:120%"></div>
-          <!-- <img id="S_2" src="Cards/back.png" class="card ui-droppable img-thumbnail rounded"> -->
-          <!-- <img id="S_3" src="Cards/S_3.png" class="card ui-droppable img-thumbnail rounded"> -->
-          <!-- <img id="S_2" src="Cards/S_2.png" class="card ui-droppable img-thumbnail rounded"> -->
-          <!-- <img id="S_1" src="Cards/S_1.png" class="card ui-droppable img-thumbnail rounded"> -->
-          <!-- <img id="S_13" src="Cards/S_13.png" class="card ui-droppable img-thumbnail rounded"> -->
+          <div id="dummy" class="dummy" style="width: 84px; height:138px; width:120%; max-width:120%"></div>
         </div>
         <div class="col">
-          <div id="dummy" class="dummy ui-droppable ui-droppable-disabled" style="width: 84px; height:138px; width:120%; max-width:120%"></div>
-          <!-- <img id="S_4" src="Cards/back.png" class="card ui-droppable img-thumbnail rounded"> -->
-          <!-- <img id="S_3" src="Cards/back.png" class="card ui-droppable img-thumbnail rounded"> -->
-          <!-- <img id="S_2" src="Cards/back.png" class="card ui-droppable img-thumbnail rounded"> -->
-          <!-- <img id="S_13" src="Cards/S_13.png" class="card ui-droppable img-thumbnail rounded"> -->
-          <!-- <img id="S_12" src="Cards/S_12.png" class="card ui-droppable img-thumbnail rounded"> -->
-          <!-- <img id="S_11" src="Cards/S_11.png" class="card ui-droppable img-thumbnail rounded"> -->
+          <div id="dummy" class="dummy" style="width: 84px; height:138px; width:120%; max-width:120%"></div>
         </div>
         <div class="col">
-          <div id="dummy" class="dummy ui-droppable ui-droppable-disabled" style="width: 84px; height:138px; width:120%; max-width:120%"></div>
-          <!-- <img id="S_8" src="Cards/S_8.png" class="card ui-droppable img-thumbnail rounded"> -->
-          <!-- <img id="S_3" src="Cards/S_3.png" class="card ui-droppable img-thumbnail rounded"> -->
-          <!-- <img id="S_7" src="Cards/S_7.png" class="card ui-droppable img-thumbnail rounded"> -->
+          <div id="dummy" class="dummy" style="width: 84px; height:138px; width:120%; max-width:120%"></div>
         </div>
         <div class="col">
-          <div id="dummy" class="dummy ui-droppable ui-droppable-disabled" style="width: 84px; height:138px; width:120%; max-width:120%"></div>
-          <!-- <img id="S_7" src="Cards/S_7.png" class="card ui-droppable img-thumbnail rounded"> -->
-          <!-- <img id="S_4" src="Cards/S_4.png" class="card ui-droppable img-thumbnail rounded"> -->
+          <div id="dummy" class="dummy" style="width: 84px; height:138px; width:120%; max-width:120%"></div>
         </div>
         <div class="col">
-          <div id="dummy" class="dummy ui-droppable ui-droppable-disabled" style="width: 84px; height:138px; width:120%; max-width:120%"></div>
-          <!-- <img id="S_8" src="Cards/S_8.png" class="card ui-droppable img-thumbnail rounded"> -->
-          <!-- <img id="S_5" src="Cards/S_5.png" class="card ui-droppable img-thumbnail rounded"> -->
+          <div id="dummy" class="dummy" style="width: 84px; height:138px; width:120%; max-width:120%"></div>
         </div>
         <div class="col">
-          <div id="dummy" class="dummy ui-droppable ui-droppable-disabled" style="width: 84px; height:138px; width:120%; max-width:120%"></div>
-          <!-- <img id="S_8" src="Cards/S_8.png" class="card ui-droppable img-thumbnail rounded"> -->
-          <!-- <img id="S_5" src="Cards/S_5.png" class="card ui-droppable img-thumbnail rounded"> -->
+          <div id="dummy" class="dummy" style="width: 84px; height:138px; width:120%; max-width:120%"></div>
         </div>
         <div class="col">
-          <div id="dummy" class="dummy ui-droppable ui-droppable-disabled" style="width: 84px; height:138px; width:120%; max-width:120%"></div>
-          <!-- <img id="S_8" src="Cards/S_8.png" class="card ui-droppable img-thumbnail rounded"> -->
+          <div id="dummy" class="dummy" style="width: 84px; height:138px; width:120%; max-width:120%"></div>
         </div>
         <div class="col">
-          <div id="dummy" class="dummy ui-droppable ui-droppable-disabled" style="width: 84px; height:138px; width:120%; max-width:120%"></div>
-          <!-- <img id="S_8" src="Cards/S_8.png" class="card ui-droppable img-thumbnail rounded"> -->
+          <div id="dummy" class="dummy" style="width: 84px; height:138px; width:120%; max-width:120%"></div>
         </div>
-        <!-- <div class="col">
-          <div id="dummy" class="dummy ui-droppable-disabled" style="width: 123px; height:174px;"></div>
-          <img id="S_8" src="Cards/S_8.png" class="card ui-droppable img-thumbnail rounded">
-        </div>
-        <div class="col">
-          <div id="dummy" class="dummy ui-droppable-disabled" style="width: 123px; height:174px;"></div>
-          <img id="S_8" src="Cards/S_8.png" class="card ui-droppable img-thumbnail rounded">
-        </div>
-        <div class="col">
-          <div id="dummy" class="dummy ui-droppable-disabled" style="width: 123px; height:174px;"></div>
-          <img id="S_8" src="Cards/S_8.png" class="card ui-droppable img-thumbnail rounded">
-        </div>
-        <div class="col">
-          <div id="dummy" class="dummy ui-droppable-disabled" style="width: 123px; height:174px;"></div>
-          <img id="S_8" src="Cards/S_8.png" class="card ui-droppable img-thumbnail rounded">
-        </div>
-        <div class="col">
-          <div id="dummy" class="dummy ui-droppable-disabled" style="width: 123px; height:174px;"></div>
-          <img id="S_8" src="Cards/S_8.png" class="card ui-droppable img-thumbnail rounded">
-        </div>
-        <div class="col">
-          <div id="dummy" class="dummy ui-droppable-disabled" style="width: 123px; height:174px;"></div>
-          <img id="S_8" src="Cards/S_8.png" class="card ui-droppable img-thumbnail rounded">
-        </div>
-        <div class="col">
-          <div id="dummy" class="dummy ui-droppable-disabled" style="width: 123px; height:174px;"></div>
-          <img id="S_8" src="Cards/S_8.png" class="card ui-droppable img-thumbnail rounded">
-        </div>
-        <div class="col">
-          <div id="dummy" class="dummy ui-droppable-disabled" style="width: 123px; height:174px;"></div>
-          <img id="S_8" src="Cards/S_8.png" class="card ui-droppable img-thumbnail rounded">
-        </div>
-        <div class="col">
-          <div id="dummy" class="dummy ui-droppable-disabled" style="width: 123px; height:174px;"></div>
-          <img id="S_8" src="Cards/S_8.png" class="card ui-droppable img-thumbnail rounded">
-        </div> -->
       </div>
-      <!-- <div id="bottomtest" class="col">
-        <div id="completecard" class="row">
-        </div> -->
-      </div>
-
-      <!-- <div style="display: flex; flex-direction: row; gap: 2em">
-        <div class="item-container">
-          <span id="item-1" class="dragged-item2">Apple</span>
-          <span id="item-2" class="dragged-item2">Banana</span>
-          <span id="item-3" class="dragged-item2">Orange</span>
-        </div>
-        <div id="drop-target"></div>
-      </div> -->
-      <!-- <div id="coltest3" class="row">
-        <div id="coltest" class="row">
-          <div class="col"></div>
-          <div class="col"></div>
-          <div class="col"></div>
-          <div class="col">
-            <img id="H_1" src="Cards/H_1.png" class="img-thumbnail rounded">
-          </div>
-          <div class="col">
-            <img id="D_1" src="Cards/D_1.png" class="img-thumbnail rounded">
-          </div>
-          <div class="col">
-            <img id="S_1" src="Cards/S_1.png" class="img-thumbnail rounded">
-          </div>
-          <div class="col">
-            <img id="C_1" src="Cards/C_1.png" class="img-thumbnail rounded">
-          </div>
-        </div>
-        <div id="coltest2" class="row">
-          <div class="col">
-            <img id="S_2" src="Cards/S_2.png" class="img-thumbnail rounded">
-          </div>
-          <div class="col">
-            <img id="S_3" src="Cards/S_3.png" class="img-thumbnail rounded">
-          </div>
-          <div class="col">
-            <img id="S_4" src="Cards/S_4.png" class="img-thumbnail rounded">
-          </div>
-          <div class="col">
-            <img id="S_5" src="Cards/S_5.png" class="img-thumbnail rounded">
-          </div>
-          <div class="col">
-            <img id="S_6" src="Cards/S_6.png" class="img-thumbnail rounded">
-          </div>
-          <div class="col">
-            <img id="S_7" src="Cards/S_7.png" class="img-thumbnail rounded">
-          </div>
-          <div class="col">
-            <img id="S_8" src="Cards/S_8.png" class="img-thumbnail rounded">
-          </div>
-        </div>
-      </div> -->
     </div>
-
-    <!-- <div id="jquery-ui-draggable" class="ui-widget-content">
-      <p>ドラッグして<br />グリッドに沿って<br />移動できる<br />ボックス。</p>
-    </div>
-    <style>
-      #jquery-ui-draggable {
-          width: 100px;
-          height: 100px;
-          padding: 30px;
-          margin: 0;
-          border-radius: 10px;
-      }
-    </style> -->
-    <!-- <div class="text-center" style="background-color: black;">
-        <img src="Cards/S_1.png" class="img-thumbnail rounded">
-    </div> -->
-    <!-- <ul id="sample_st" class="st">
-        <li style="background: #333;">リスト項目1</li>
-        <li style="background: #d40000;">リスト項目2</li>
-        <li style="background: #0000d4;">リスト項目3</li>
-        <li style="background: #00ddd4;">リスト項目4</li>
-        <li style="background: #dd4000;">リスト項目5</li>
-    </ul> -->
-
   </body>
 </html>
