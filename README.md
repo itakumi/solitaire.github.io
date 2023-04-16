@@ -1,1 +1,1 @@
-# soritaire.github.io
+# solitaire.github.io
